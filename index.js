@@ -35,7 +35,7 @@ app.post("/add/country", async (req,res)=>{
     hasNuclearWeapons: req.body.hasNuclearWeapons,
   }).save()
 
-  res,json(newCountry)
+  // res.json(newCountry)
 })
 
 // Create a GET route for "/" that renders countries.ejs with every country from the Countries collection (1 point)
@@ -49,19 +49,22 @@ app.get("/", async (req,res)=>{
 
 // Create a dynamic PATCH route handler for "/update/{name}" that modifies the population of the country specified in the path (3 points)
 // Test this route on post man
-app.patch("/update/{name}", async (req,res)=>{
-  const response = await Country.findOneAndUpdate({name:{name}},{population: req.body.population})
+app.patch("/update/:name", async (req,res)=>{
+  const response = await Country.findOneAndUpdate({name: req.params.name},{population: req.body.population})
 })
 
 
 // Create a DELETE route handler for "/delete/country" that deletes a country of your choice (3 points)
 // Test this route on post man
+app.delete("/update/:country", async (req,res)=>{
+  const response = await Country.findOneAndDelete(req.params.country)
+})
 
 
 async function startServer() {
   
     // add your SRV string with a database called countries
-  await mongoose.connect("...");
+  await mongoose.connect("mongodb+srv://SE12:CSH2025@adamo8.b6ydo.mongodb.net/country?retryWrites=true&w=majority&appName=AdamO8");
 
   app.listen(3000, () => {
     console.log("Server is running");
