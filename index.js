@@ -49,17 +49,19 @@ app.get("/", async (req,res)=>{
 
 // Create a dynamic PATCH route handler for "/update/{name}" that modifies the population of the country specified in the path (3 points)
 // Test this route on post man
-app.patch("/update/:name", async (req,res)=>{
-  const response = await Country.findOneAndUpdate({name: req.params.name},{population: req.body.population})
+app.patch("/update/:country", async (req,res)=>{
+  const response = await Country.findOneAndUpdate({country: req.params.country},{population: req.body.population})
+  res.json(response)
 })
+
 
 
 // Create a DELETE route handler for "/delete/country" that deletes a country of your choice (3 points)
 // Test this route on post man
-app.delete("/update/:country", async (req,res)=>{
-  const response = await Country.findOneAndDelete(req.params.country)
+app.delete("/delete/:countryName", async (req,res)=>{
+  const response = await Country.findOneAndDelete({country: req.params.countryName})
+  res.json(response)
 })
-
 
 async function startServer() {
   
